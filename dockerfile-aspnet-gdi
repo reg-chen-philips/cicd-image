@@ -1,0 +1,18 @@
+ARG REPO=mcr.microsoft.com
+ARG VER=10.0
+
+FROM $REPO/dotnet/aspnet:$VER
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        # GDI dependencies
+        libgdiplus \
+        libharfbuzz0b \
+        # ps cli
+        procps \
+    && rm -rf /var/lib/apt/lists/*
+
+# COPY Fonts/ /usr/local/share/fonts/
+RUN ln -s /usr/lib/x86_64-linux-gnu/libtiff.so.6.0.0 /usr/lib/x86_64-linux-gnu/libtiff.so.5.5.0
+RUN rm /usr/lib/x86_64-linux-gnu/libtiff.so.6
+RUN ldconfig
