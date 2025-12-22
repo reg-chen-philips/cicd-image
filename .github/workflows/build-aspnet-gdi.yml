@@ -18,3 +18,7 @@ jobs:
       run: docker build . --file dockerfile-aspnet-gdi --tag decg-docker-local.artifactory-ehv.ta.philips.com/aspnet_gdi:$ver --build-arg VER=$ver
       env:
         ver: 10.0.1
+
+    - uses: actions/checkout@v4
+    - name: Build the teamcity agent
+      run: docker build . --file dockerfile-teamcity-agent-net --tag decg-docker-local.artifactory-ehv.ta.philips.com/taamcity-agent-net
